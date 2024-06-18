@@ -15,6 +15,10 @@
   transform: translateX(0);
 }
 
+.menu-toggle:hover {
+  background: #444; /* Darken background on hover */
+}
+
 .menu-toggle {
   position: absolute;
   top: 10px;
@@ -37,5 +41,22 @@ nav li {
 }
 
 nav li:hover {
-  background: #444;
+  background: #444; /* Darken background on hover */
+}
+
+.menu-button {
+  display: block;
+  width: 100%;
+  padding: 12px 20px;
+  background-color: #555;
+  border: none;
+  color: white;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+
+.menu-button:hover {
+  background-color: #666;
 }

@@ -1,20 +1,44 @@
-/* App.css */
 .App {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  text-align: center;
+  /* Your existing styles */
 }
 
 .App-header {
+  background-color: #282c34;
+  padding: 20px;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
+  position: relative;
 }
 
-button {
-  margin-top: 20px;
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.welcome {
+  color: white;
+}
+
+.auth-buttons {
+  margin-left: auto; /* Pushes buttons to the right */
+}
+
+.sign-in-btn,
+.sign-out-btn {
+  background-color: transparent;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  margin-left: 10px;
+}
+
+.sign-in-btn:hover,
+.sign-out-btn:hover {
+  text-decoration: underline;
 }

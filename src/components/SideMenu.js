@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './SideMenu.css';
 
 const SideMenu = ({ closeMenu }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
-  const handleLinkClick = () => {
-    toggleMenu(); // Close the menu when a link is clicked
+  const handleLinkClick = (path) => {
+    navigate(path); // Navigate to the specified path
+    toggleMenu(); // Close the menu
     if (closeMenu) {
       closeMenu(); // Additional callback if provided
     }
@@ -19,17 +21,18 @@ const SideMenu = ({ closeMenu }) => {
   return (
     <div className={`side-menu ${isOpen ? 'open' : ''}`}>
       <button className="menu-toggle" onClick={toggleMenu}>
-        {isOpen ? 'Close Menu' : 'Open Menu'}
+        {isOpen ? '≡' : '≡'}
       </button>
       {isOpen && (
         <nav>
           <ul>
             <li>
-              <Link to="/" onClick={handleLinkClick}>Home</Link>
+              <button className="menu-button" onClick={() => handleLinkClick('/')}>Home</button>
             </li>
             <li>
-              <Link to="/create-task" onClick={handleLinkClick}>Create Task</Link>
+              <button className="menu-button" onClick={() => handleLinkClick('/create-task')}>Create Task</button>
             </li>
+            {/* Add more menu items as needed */}
           </ul>
         </nav>
       )}
