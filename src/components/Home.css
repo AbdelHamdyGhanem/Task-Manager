@@ -9,6 +9,29 @@
   flex: 1; /* Take up remaining vertical space */
 }
 
+.progress-columns {
+  display: flex;
+  gap: 20px;
+  flex: 1; /* Fill available space vertically */
+  overflow-x: auto; /* Allow horizontal scrolling if necessary */
+  padding-bottom: 20px; /* Add space at the bottom */
+}
+
+.column {
+  flex: 1;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  padding: 10px;
+  overflow-y: auto; /* Enable vertical scrolling if content exceeds column height */
+  display: flex;
+  flex-direction: column;
+}
+
+.column h3 {
+  text-align: center; /* Center align the title */
+  margin: 10px 0; /* Add margin around the title */
+}
+
 .user-profile {
   position: fixed;
   bottom: 10px;
