@@ -5,6 +5,7 @@ import { signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from
 import './App.css'; // Import your global CSS styles
 import SideMenu from './components/SideMenu';
 import CreateTask from './components/CreateTask';
+import Home from './components/Home'; // Assuming Home component is in './components/Home.js'
 
 function App() {
   const [user, setUser] = useState(null);
@@ -64,6 +65,7 @@ function App() {
       </header>
       <SideMenu isOpen={isSideMenuOpen} closeMenu={closeSideMenu} />
       <Routes>
+        <Route path="/" element={<Home user={user} />} />
         <Route path="/create-task" element={<CreateTask />} />
         {/* Define more routes here */}
       </Routes>
