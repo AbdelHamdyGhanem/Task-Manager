@@ -18,12 +18,6 @@ const SideMenu = ({ closeMenu, user }) => {
     }
   };
 
-  const handlePreferencesClick = () => {
-    // Handle what happens when Preferences button is clicked
-    // For example, navigate to '/preferences' or perform an action
-    console.log("Navigate to Preferences or perform an action");
-  };
-
   return (
     <div className={`side-menu ${isOpen ? 'open' : ''}`}>
       <button className="menu-toggle" onClick={toggleMenu}>
@@ -41,10 +35,7 @@ const SideMenu = ({ closeMenu, user }) => {
             <li>
               <button className="menu-button" onClick={() => handleLinkClick('/history')}>History</button>
             </li>
-            {/* Add Preferences button */}
-            <li>
-              <button className="menu-button" onClick={handlePreferencesClick}>Preferences</button>
-            </li>
+            {}
           </ul>
           {user && (
             <div className="user-info">

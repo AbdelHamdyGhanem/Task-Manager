@@ -4,14 +4,14 @@ import { signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from
 import './App.css'; // Import your global CSS styles
 import SideMenu from './components/SideMenu';
 import CreateTask from './components/CreateTask';
-
 import Home from './components/Home';
 import History from './components/History';
-import Preferences from './components/Preferences'; // Import Preferences component
+import { Routes, Route } from 'react-router-dom'; // Import Routes and Route for nested routing
 
 function App() {
   const [user, setUser] = useState(null);
   const [layout, setLayout] = useState('columns'); // Default layout is columns
+  const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, user => {
@@ -42,6 +42,10 @@ function App() {
     setLayout(newLayout);
   };
 
+  const handleRestoreTask = (restoredTask) => {
+    setTasks(prevTasks => [...prevTasks, restoredTask]);
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -61,11 +65,12 @@ function App() {
         </div>
       </header>
       <SideMenu user={user} />
-      {/* Render content based on user navigation and layout preferences */}
-      {window.location.pathname === '/' && <Home user={user} layout={layout} />}
-      {window.location.pathname === '/create-task' && <CreateTask />}
-      {window.location.pathname === '/history' && <History />}
-      {window.location.pathname === '/preferences' && <Preferences onSavePreferences={handleSavePreferences} />}
+      {/* Use nested routing for content */}
+      <Routes>
+        <Route path="/" element={<Home user={user} layout={layout} tasks={tasks} setTasks={setTasks} />} />
+        <Route path="/create-task" element={<CreateTask />} />
+        <Route path="/history" element={<History onRestoreTask={handleRestoreTask} />} />
+      </Routes>
     </div>
   );
 }

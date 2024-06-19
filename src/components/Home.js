@@ -6,8 +6,7 @@ import Confetti from 'react-dom-confetti';
 import './Home.css'; // Ensure this path matches your project structure
 import { useNavigate } from 'react-router-dom';
 
-const Home = ({ user }) => {
-  const [tasks, setTasks] = useState([]);
+const Home = ({ user, layout, tasks, setTasks }) => {
   const [showConfetti, setShowConfetti] = useState(false);
   const navigate = useNavigate();
 
@@ -28,7 +27,7 @@ const Home = ({ user }) => {
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [setTasks]);
 
   const handleDelete = async (taskId) => {
     try {
@@ -107,7 +106,7 @@ const Home = ({ user }) => {
   );
 
   return (
-    <div className="home-container">
+    <div className={`home-container ${layout}`}>
       <h2>Welcome, {user ? user.displayName : 'Guest'}!</h2>
       <DragDropContext onDragEnd={onDragEnd}>
         <div className="tasks-board">

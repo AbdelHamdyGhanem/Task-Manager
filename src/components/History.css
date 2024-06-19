@@ -15,7 +15,7 @@
 }
 
 .history-item p {
-  margin: 5px 0;
+  margin: 3px 0;
 }
 
 .history-item strong {
@@ -23,16 +23,33 @@
   margin-right: 5px;
 }
 
-.history-item button {
+.history-btn {
   background-color: #007bff;
   color: #fff;
   border: none;
-  padding: 8px 12px;
+  padding: 6px 10px;
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  margin-right: 5px;
 }
 
-.history-item button:hover {
+.history-btn:hover {
   background-color: #0056b3;
+}
+
+.restore-btn {
+  background-color: #28a745;
+}
+
+.restore-btn:hover {
+  background-color: #218838;
+}
+
+.delete-btn {
+  background-color: #dc3545;
+}
+
+.delete-btn:hover {
+  background-color: #c82333;
 }
