@@ -1,18 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
 import { auth } from './services/firebase';
 import { signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from 'firebase/auth';
 import './App.css'; // Import your global CSS styles
 import SideMenu from './components/SideMenu';
 import CreateTask from './components/CreateTask';
+<<<<<<< HEAD
 import Home from './components/Home'; // Assuming Home component is in './components/Home.js'
 import History from './components/History';
 
+=======
+import Home from './components/Home';
+import History from './components/History';
+import Preferences from './components/Preferences'; // Import Preferences component
+>>>>>>> origin/main
 
 function App() {
   const [user, setUser] = useState(null);
-  const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
-  const navigate = useNavigate();
+  const [layout, setLayout] = useState('columns'); // Default layout is columns
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, user => {
@@ -33,18 +37,14 @@ function App() {
   const handleSignOut = async () => {
     try {
       await signOut(auth);
-      navigate('/'); // This should work correctly now
+      // Optionally, navigate to another page after sign out
     } catch (error) {
       console.error('Sign-out error:', error);
     }
   };
 
-  const toggleSideMenu = () => {
-    setIsSideMenuOpen(!isSideMenuOpen);
-  };
-
-  const closeSideMenu = () => {
-    setIsSideMenuOpen(false);
+  const handleSavePreferences = (newLayout) => {
+    setLayout(newLayout);
   };
 
   return (
@@ -65,6 +65,7 @@ function App() {
           </div>
         </div>
       </header>
+<<<<<<< HEAD
       <SideMenu isOpen={isSideMenuOpen} closeMenu={closeSideMenu} />
       <Routes>
         <Route path="/history" element={<History />} />
@@ -72,6 +73,14 @@ function App() {
         <Route path="/create-task" element={<CreateTask />} />
         {/* Define more routes here */}
       </Routes>
+=======
+      <SideMenu user={user} />
+      {/* Render content based on user navigation and layout preferences */}
+      {window.location.pathname === '/' && <Home user={user} layout={layout} />}
+      {window.location.pathname === '/create-task' && <CreateTask />}
+      {window.location.pathname === '/history' && <History />}
+      {window.location.pathname === '/preferences' && <Preferences onSavePreferences={handleSavePreferences} />}
+>>>>>>> origin/main
     </div>
   );
 }

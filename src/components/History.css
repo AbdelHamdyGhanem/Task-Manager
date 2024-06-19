@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+/* History.css */
+
+>>>>>>> origin/main
 .history-container {
   padding: 20px;
 }
@@ -21,6 +26,7 @@
 .history-item strong {
   font-weight: bold;
   margin-right: 5px;
+<<<<<<< HEAD
 }
 
 .history-item button {
@@ -35,4 +41,6 @@
 
 .history-item button:hover {
   background-color: #0056b3;
+=======
+>>>>>>> origin/main
 }
