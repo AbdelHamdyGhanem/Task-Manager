@@ -1,0 +1,26 @@
+/* History.css */
+
+.history-container {
+  padding: 20px;
+}
+
+.history-list {
+  margin-top: 20px;
+}
+
+.history-item {
+  background-color: #f4f4f4;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.history-item p {
+  margin: 5px 0;
+}
+
+.history-item strong {
+  font-weight: bold;
+  margin-right: 5px;
+}
