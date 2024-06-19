@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { db } from '../services/firebase';
-import './CreateTask.css'; // Adjust path as per your project structure
+import { collection, addDoc } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
+import './CreateTask.css'; // Ensure this path matches your project structure
 
 const CreateTask = () => {
   const [taskName, setTaskName] = useState('');
@@ -8,9 +10,24 @@ const CreateTask = () => {
   const [description, setDescription] = useState('');
   const [dueDate, setDueDate] = useState('');
   const [priority, setPriority] = useState('Low');
+  const [error, setError] = useState('');
+  const [showError, setShowError] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Check if the due date is valid
+    const selectedDate = new Date(dueDate);
+    const currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0); // Remove the time part for accurate comparison
+
+    if (selectedDate < currentDate) {
+      setError('Due date cannot be in the past.');
+      setShowError(true);
+      setTimeout(() => setShowError(false), 5000);
+      return;
+    }
 
     try {
       const taskData = {
@@ -24,16 +41,37 @@ const CreateTask = () => {
 
       console.log('Task data:', taskData);
 
-      const docRef = await db.collection('tasks').add(taskData);
+      const docRef = await addDoc(collection(db, 'tasks'), taskData);
       console.log('Task added with ID:', docRef.id);
 
+      // Clear the form
       setTaskName('');
       setProgress('Not Started');
       setDescription('');
       setDueDate('');
       setPriority('Low');
+      setError('');
+
+      // Navigate to home to see the updated tasks list
+      navigate('/');
     } catch (error) {
       console.error('Error adding task:', error);
+    }
+  };
+
+  const handleDueDateChange = (e) => {
+    const selectedDate = new Date(e.target.value);
+    const currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0); // Remove the time part for accurate comparison
+
+    if (selectedDate < currentDate) {
+      setError('Due date cannot be in the past.');
+      setShowError(true);
+      setTimeout(() => setShowError(false), 5000);
+    } else {
+      setError('');
+      setShowError(false);
+      setDueDate(e.target.value);
     }
   };
 
@@ -41,6 +79,7 @@ const CreateTask = () => {
     <div className="container">
       <div className="form-wrapper">
         <h2>Create Task</h2>
+        {showError && <div className="error-message">{error}</div>}
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label>Task Name:</label>
@@ -61,7 +100,7 @@ const CreateTask = () => {
           </div>
           <div className="form-group">
             <label>Due Date:</label>
-            <input type="date" value={dueDate} onChange={(e) => setDueDate(e.target.value)} required />
+            <input type="date" value={dueDate} onChange={handleDueDateChange} required />
           </div>
           <div className="form-group">
             <label>Priority:</label>

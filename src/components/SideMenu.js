@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './SideMenu.css';
 
-const SideMenu = ({ closeMenu }) => {
+const SideMenu = ({ closeMenu, user }) => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -11,17 +11,23 @@ const SideMenu = ({ closeMenu }) => {
   };
 
   const handleLinkClick = (path) => {
-    navigate(path); // Navigate to the specified path
-    toggleMenu(); // Close the menu
+    navigate(path);
+    toggleMenu();
     if (closeMenu) {
-      closeMenu(); // Additional callback if provided
+      closeMenu();
     }
+  };
+
+  const handlePreferencesClick = () => {
+    // Handle what happens when Preferences button is clicked
+    // For example, navigate to '/preferences' or perform an action
+    console.log("Navigate to Preferences or perform an action");
   };
 
   return (
     <div className={`side-menu ${isOpen ? 'open' : ''}`}>
       <button className="menu-toggle" onClick={toggleMenu}>
-        {isOpen ? '≡' : '≡'}
+        {isOpen ? '✕' : '≡'}
       </button>
       {isOpen && (
         <nav>
@@ -32,8 +38,22 @@ const SideMenu = ({ closeMenu }) => {
             <li>
               <button className="menu-button" onClick={() => handleLinkClick('/create-task')}>Create Task</button>
             </li>
-            {/* Add more menu items as needed */}
+            <li>
+              <button className="menu-button" onClick={() => handleLinkClick('/history')}>History</button>
+            </li>
+            {/* Add Preferences button */}
+            <li>
+              <button className="menu-button" onClick={handlePreferencesClick}>Preferences</button>
+            </li>
           </ul>
+          {user && (
+            <div className="user-info">
+              <img src={user.photoURL} alt="User Avatar" className="user-avatar" />
+              <div className="user-details">
+                <p className="user-name">{user.displayName}</p>
+              </div>
+            </div>
+          )}
         </nav>
       )}
     </div>
