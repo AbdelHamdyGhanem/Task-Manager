@@ -4,15 +4,10 @@ import { signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from
 import './App.css'; // Import your global CSS styles
 import SideMenu from './components/SideMenu';
 import CreateTask from './components/CreateTask';
-<<<<<<< HEAD
-import Home from './components/Home'; // Assuming Home component is in './components/Home.js'
-import History from './components/History';
 
-=======
 import Home from './components/Home';
 import History from './components/History';
 import Preferences from './components/Preferences'; // Import Preferences component
->>>>>>> origin/main
 
 function App() {
   const [user, setUser] = useState(null);
@@ -65,22 +60,12 @@ function App() {
           </div>
         </div>
       </header>
-<<<<<<< HEAD
-      <SideMenu isOpen={isSideMenuOpen} closeMenu={closeSideMenu} />
-      <Routes>
-        <Route path="/history" element={<History />} />
-        <Route path="/" element={<Home user={user} />} />
-        <Route path="/create-task" element={<CreateTask />} />
-        {/* Define more routes here */}
-      </Routes>
-=======
       <SideMenu user={user} />
       {/* Render content based on user navigation and layout preferences */}
       {window.location.pathname === '/' && <Home user={user} layout={layout} />}
       {window.location.pathname === '/create-task' && <CreateTask />}
       {window.location.pathname === '/history' && <History />}
       {window.location.pathname === '/preferences' && <Preferences onSavePreferences={handleSavePreferences} />}
->>>>>>> origin/main
     </div>
   );
 }
